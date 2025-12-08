@@ -17,10 +17,31 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from inicio import views
+from django.conf import settings
+from registros import views as views_registros
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.principal, name="Principal"),
-    path('contacto/',views.contacto, name="Contacto"),
+    path('',views_registros.registros, name="Principal"),
+    path('contacto/',views_registros.contacto, name="Contacto"),
     path('formulario/',views.formulario, name="Formulario"),
+    path('registrar/',views_registros.registrar,name="Registrar"),
+    path('mensaje/',views_registros.comentario, name="Mensaje"),
+    path('eliminarComentario/<int:id>/',views_registros.eliminarComentarioContacto,name='Eliminar'),
+    path('editarComentario/<int:id>/', views_registros.editarComentario, name='Editar'),
+    path('consultas1/', views_registros.consultar1, name='Consultas'),
+    path('consultas2/', views_registros.consultar2, name='Consultas'),
+    path('consultas3/', views_registros.consultar3, name='Consultas'),
+    path('consultas4/', views_registros.consultar4, name='Consultas'),
+    path('consultas5/', views_registros.consultar5, name='Consultas'),
+    path('consultas6/', views_registros.consultar6, name='Consultas'),
+    path('consultas7/', views_registros.consultar7, name='Consultas'),
+    path('consultas8/', views_registros.consultar8, name='Consultas'),
+    path('subir', views_registros.archivos, name="Subir"),
+
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
